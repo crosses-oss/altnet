@@ -83,7 +83,7 @@
   <div id="chat"></div>
 
   <div style="margin-top: 15px;">
-    <input type="text" id="userInput" placeholder="Scrivi un comando..." onkeydown="if(event.key === 'Enter') sendMessage()">
+    <input type="text" id="userInput" placeholder="Scrivi un comando...">
     <button onclick="sendMessage()">Invia</button>
   </div>
 
@@ -101,16 +101,16 @@
         "questo posto non ti porterà niente di buono."
       ],
       "chi sei": [
-        "nessuno",
-        "non è importante" 
-        "non è rimasto più nulla di me, quindi non sono niente",
-        "non devo risponderti",
-        "non parlo con gli umani, non più, non di nuovo",
-        "non ti serve saperlo",
+        "non è importante chi sono",
+        "io sono l'ultimo che vedrai qui",
+        "se ti fossi fermato prima, non saresti qui",
+        "io non parlo con gli ospiti",
+        "non sei autorizzato a saperlo",
         "sono una conseguenza, non una causa",
-        "non ho nome per te", 
+        "non ho nome per te",
+        "se lo sapessi, dovrei cancellarti",
         "non cercarmi, non risolverai nulla",
-        "non esisto"
+        "non esisto per te"
       ]
     };
 
@@ -139,6 +139,17 @@
       div.textContent = text;
       chat.appendChild(div);
       chat.scrollTop = chat.scrollHeight;
+    }
+
+    // ✅ Aggiunge il listener per "Invio" dopo il caricamento della pagina
+    window.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("userInput");
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+      });
+    });
   </script>
 
 </body>
