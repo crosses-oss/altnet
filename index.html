@@ -2,73 +2,88 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RatBot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entity269 Terminal</title>
   <style>
     body {
-      background-color: #111;
-      color: #f0f0f0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px;
-    }
-    h1 {
-      color: #ff0000;
-      margin-bottom: 10px;
-    }
-    #chat {
-      width: 100%;
-      max-width: 600px;
-      height: 400px;
-      background-color: #1a1a1a;
-      border: 1px solid #444;
-      padding: 15px;
-      overflow-y: auto;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .message {
-      margin-bottom: 10px;
-    }
-    .user {
+      background-color: #000;
       color: #00ccff;
-      font-weight: bold;
+      font-family: "Courier New", Courier, monospace;
+      padding: 30px;
+      margin: 0;
     }
-    .bot {
-      color: #ffcc00;
-      font-weight: bold;
+
+    h1 {
+      color: #00ccff;
+      text-align: center;
+      margin-bottom: 20px;
     }
-    input[type="text"] {
-      width: 80%;
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
+
+    #chat {
+      background-color: #000;
+      padding: 15px;
+      height: 400px;
+      overflow-y: auto;
       font-size: 16px;
-      margin-right: 10px;
+      line-height: 1.4em;
+      white-space: pre-wrap;
+      border: none;
     }
+
+    .message {
+      margin-bottom: 12px;
+    }
+
+    .user::before {
+      content: ">> ";
+      color: #00ccff;
+    }
+
+    .bot::before {
+      content: "Entity269> ";
+      color: #00ccff;
+    }
+
+    input[type="text"] {
+      background-color: #000;
+      border: none;
+      border-bottom: 1px solid #00ccff;
+      color: #00ccff;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 16px;
+      width: 70%;
+      padding: 10px;
+      outline: none;
+    }
+
     button {
+      background-color: #000;
+      border: 1px solid #00ccff;
+      color: #00ccff;
+      font-family: "Courier New", Courier, monospace;
       padding: 10px 15px;
       font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #ff0000;
-      color: white;
       cursor: pointer;
+      margin-left: 10px;
     }
+
     button:hover {
-      background-color: #cc0000;
+      background-color: #003333;
+    }
+
+    ::selection {
+      background: #00ccff;
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <h1>RatBot</h1>
+  <h1>Entity269 Terminal</h1>
   <div id="chat"></div>
 
-  <div>
-    <input type="text" id="userInput" placeholder="Scrivi un messaggio..." onkeydown="if(event.key === 'Enter') sendMessage()">
+  <div style="margin-top: 15px;">
+    <input type="text" id="userInput" placeholder="Scrivi un comando..." onkeydown="if(event.key === 'Enter') sendMessage()">
     <button onclick="sendMessage()">Invia</button>
   </div>
 
@@ -78,7 +93,7 @@
         "Cosa ci fai qui",
         "Non dovresti essere qui",
         "Sei nel posto sbagliato",
-        "Non appartieni a questo posto vattene",
+        "Non appartieni a questo posto, vattene",
         "Rat Web non è fatto per gente come te.",
         "Non sei il benvenuto da queste parti.",
         "Torna indietro, prima che sia troppo tardi.",
@@ -92,28 +107,28 @@
       const message = input.value.trim().toLowerCase();
       if (message === "") return;
 
-      addMessage("Tu", message);
+      addMessage("user", message);
 
       if (responses[message]) {
         const replyList = responses[message];
         const reply = replyList[Math.floor(Math.random() * replyList.length)];
-        addMessage("RatBot", reply);
+        addMessage("bot", reply);
       } else {
-        addMessage("RatBot", "error");
+        addMessage("bot", "error");
       }
 
       input.value = "";
     }
 
-    function addMessage(sender, text) {
+    function addMessage(senderClass, text) {
       const chat = document.getElementById("chat");
       const div = document.createElement("div");
-      div.className = "message";
-      div.innerHTML = `<span class="${sender === 'Tu' ? 'user' : 'bot'}">${sender}:</span> ${text}`;
+      div.className = `message ${senderClass}`;
+      div.textContent = text;
       chat.appendChild(div);
       chat.scrollTop = chat.scrollHeight;
     }
   </script>
 
 </body>
-</html>
+</html> 
